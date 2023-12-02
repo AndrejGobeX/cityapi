@@ -10,14 +10,15 @@ import java.net.*;
 
 public class WeatherApiBridge {
     private final static String weatherQuery =
-            "https://api.weatherapi.com/v1/current.json?key=<KEY>&q=<CITY>";
+            "https://api.weatherapi.com/v1/current.json?key=<KEY>&q='<CITY>'";
     private final static String weatherApiKey =
             "46c3b90ee84c4b58981130132230112";
 
     public static String makeQuery(String cityName){
         return weatherQuery
                 .replaceAll("<KEY>", weatherApiKey)
-                .replaceAll("<CITY>", cityName);
+                .replaceAll("<CITY>", cityName)
+                .replaceAll(" ", "+");
     }
 
     public static String getResponse(String url) throws IOException, URISyntaxException {
