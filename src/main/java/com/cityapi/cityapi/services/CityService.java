@@ -21,6 +21,8 @@ public class CityService {
             "select * from cities where upper(name)=upper(?);";
     private final String insertCitySqlStatement =
             "insert into cities (name, country, region, population) values (?, ?, ?, ?);";
+    private final String deleteCitySqlStatement =
+            "delete from cities where id=?;";
 
     private City getCity(ResultSet result) throws SQLException, IOException {
         if (result.next()){
@@ -81,6 +83,21 @@ public class CityService {
             preparedStatement.setString(2, city.getCountry());
             preparedStatement.setString(3, city.getRegion());
             preparedStatement.setInt(4, city.getPopulation());
+            preparedStatement.executeUpdate();
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+        return true;
+    }
+
+    public boolean deleteCity(Integer id){
+        if(getCity(id) == null)
+            return false;
+
+        try(PreparedStatement preparedStatement = con.prepareStatement(deleteCitySqlStatement)){
+            preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
         }
         catch (SQLException e){

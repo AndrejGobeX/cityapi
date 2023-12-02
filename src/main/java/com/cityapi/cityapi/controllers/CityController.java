@@ -14,8 +14,14 @@ public class CityController {
     private final CityService cityService;
     private final static String MESSAGE_CITY_NOT_FOUND =
             "The desired city does not exist in the database, or the query is invalid.";
+    private final static String MESSAGE_CITY_CREATED =
+            "Target city created successfully.";
     private final static String MESSAGE_CITY_NOT_CREATED =
-            "The desired city containes null values, already exists, or an internal error has occurred.";
+            "The desired city contains null values, already exists, or an internal error has occurred.";
+    private final static String MESSAGE_CITY_DELETED =
+            "Target city deleted successfully.";
+    private final static String MESSAGE_CITY_NOT_DELETED =
+            "Target city does not exist, or an internal error has occurred.";
 
     private ResponseEntity<?> formatCity(City city){
         if(city == null)
@@ -35,14 +41,14 @@ public class CityController {
         this.cityService = cityService;
     }
 
-    @GetMapping("/getCityById")
+    @GetMapping
     public ResponseEntity<?> getCity(@RequestParam Integer id){
         return formatCity(
                 cityService.getCity(id)
         );
     }
 
-    @GetMapping("/getCityByName")
+    @GetMapping("/byName")
     public ResponseEntity<?> getCity(@RequestParam String name){
         return formatCity(
                 cityService.getCity(name)
@@ -53,11 +59,26 @@ public class CityController {
     public ResponseEntity<?> createCity(@RequestBody City city){
         if(cityService.createCity(city))
             return new ResponseEntity<>(
+                    MESSAGE_CITY_CREATED,
                     HttpStatus.CREATED
             );
 
         return new ResponseEntity<>(
                 MESSAGE_CITY_NOT_CREATED,
+                HttpStatus.CONFLICT
+        );
+    }
+
+    @DeleteMapping
+    public ResponseEntity<?> deleteCity(@RequestParam Integer id){
+        if(cityService.deleteCity(id))
+            return new ResponseEntity<>(
+                    MESSAGE_CITY_DELETED,
+                    HttpStatus.OK
+            );
+
+        return new ResponseEntity<>(
+                MESSAGE_CITY_NOT_DELETED,
                 HttpStatus.CONFLICT
         );
     }
