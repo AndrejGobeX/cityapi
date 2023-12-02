@@ -6,6 +6,7 @@ public class City {
     private String country;
     private String state_region;
     private int population;
+    private double temp_c;
     public enum Column{ZERO, ID, NAME, COUNTRY, STATE_REGION, POPULATION};
 
     public City(int id, String name, String country, String state_region, int population) {
@@ -54,5 +55,13 @@ public class City {
 
     public void setPopulation(int population) {
         this.population = population;
+    }
+
+    public double getTemp_c() {
+        return temp_c;
+    }
+
+    public void setTemp_c(double temp_c) {
+        this.temp_c = temp_c;
     }
 }
