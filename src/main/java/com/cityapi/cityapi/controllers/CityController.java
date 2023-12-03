@@ -18,6 +18,10 @@ public class CityController {
             "Target city created successfully.";
     private final static String MESSAGE_CITY_NOT_CREATED =
             "The desired city contains null values, already exists, or an internal error has occurred.";
+    private final static String MESSAGE_CITY_UPDATED =
+            "Target city updated successfully.";
+    private final static String MESSAGE_CITY_NOT_UPDATED =
+            "The desired city contains null values, does not exist, or an internal error has occurred.";
     private final static String MESSAGE_CITY_DELETED =
             "Target city deleted successfully.";
     private final static String MESSAGE_CITY_NOT_DELETED =
@@ -65,6 +69,20 @@ public class CityController {
 
         return new ResponseEntity<>(
                 MESSAGE_CITY_NOT_CREATED,
+                HttpStatus.CONFLICT
+        );
+    }
+
+    @PutMapping
+    public ResponseEntity<?> updateCity(@RequestBody City city){
+        if(cityService.updateCity(city))
+            return new ResponseEntity<>(
+                    MESSAGE_CITY_UPDATED,
+                    HttpStatus.CREATED
+            );
+
+        return new ResponseEntity<>(
+                MESSAGE_CITY_NOT_UPDATED,
                 HttpStatus.CONFLICT
         );
     }

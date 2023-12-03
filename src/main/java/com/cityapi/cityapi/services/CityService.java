@@ -23,6 +23,8 @@ public class CityService {
             "insert into cities (name, country, region, population) values (?, ?, ?, ?);";
     private final String deleteCitySqlStatement =
             "delete from cities where id=?;";
+    private final String updateCitySqlStatement =
+            "update cities set name = ?, country = ?, region = ?, population = ? where id = ?;";
 
     private City getCity(ResultSet result) throws SQLException, IOException {
         if (result.next()){
@@ -83,6 +85,25 @@ public class CityService {
             preparedStatement.setString(2, city.getCountry());
             preparedStatement.setString(3, city.getRegion());
             preparedStatement.setInt(4, city.getPopulation());
+            preparedStatement.executeUpdate();
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+        return true;
+    }
+
+    public boolean updateCity(City city) {
+        if(getCity(city.getId()) == null)
+            return false;
+
+        try(PreparedStatement preparedStatement = con.prepareStatement(updateCitySqlStatement)){
+            preparedStatement.setString(1, city.getName());
+            preparedStatement.setString(2, city.getCountry());
+            preparedStatement.setString(3, city.getRegion());
+            preparedStatement.setInt(4, city.getPopulation());
+            preparedStatement.setInt(5, city.getId());
             preparedStatement.executeUpdate();
         }
         catch (SQLException e){
