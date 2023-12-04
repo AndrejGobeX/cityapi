@@ -6,7 +6,6 @@ import com.cities.citytempapi.models.City;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,6 +13,7 @@ import java.sql.SQLException;
 
 @Service
 public class CityService {
+
     private final Connection con = PostgreConnection.getConnection();
     private final String getCityByIdSqlStatement =
             "select * from cities where id=?;";

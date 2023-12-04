@@ -2,10 +2,11 @@ package com.cities.citytempapi.controllers;
 
 import com.cities.citytempapi.models.User;
 import com.cities.citytempapi.services.UserService;
+import com.cities.citytempapi.utils.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserController {
@@ -17,8 +18,12 @@ public class UserController {
         this.userService = userService;
     }
 
-    //@GetMapping("/user")
-    public User getUser(@RequestParam Integer id){
-        return userService.getUser(id);
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody User user){
+        String token = Authorization.login(user, userService);
+        return new ResponseEntity<>(
+                token,
+                HttpStatus.OK
+        );
     }
 }

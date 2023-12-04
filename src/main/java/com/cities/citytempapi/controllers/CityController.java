@@ -2,6 +2,8 @@ package com.cities.citytempapi.controllers;
 
 import com.cities.citytempapi.models.City;
 import com.cities.citytempapi.services.CityService;
+import com.cities.citytempapi.utils.Authorization;
+import com.cities.citytempapi.utils.TokenWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class CityController {
 
     private final CityService cityService;
+    private final TokenWrapper tokenWrapper;
     private final static String MESSAGE_CITY_NOT_FOUND =
             "The desired city does not exist in the database, or the query is invalid.";
     private final static String MESSAGE_CITY_CREATED =
@@ -40,13 +43,25 @@ public class CityController {
         );
     }
 
+    private ResponseEntity<?> unauthenticated(){
+        return new ResponseEntity<>(
+                Authorization.MESSAGE_INVALID_TOKEN,
+                HttpStatus.UNAUTHORIZED
+        );
+    }
+
     @Autowired
-    public CityController(CityService cityService){
+    public CityController(CityService cityService, TokenWrapper tokenWrapper){
         this.cityService = cityService;
+        this.tokenWrapper = tokenWrapper;
     }
 
     @GetMapping
     public ResponseEntity<?> getCity(@RequestParam Integer id){
+        if(!Authorization.authenticate(tokenWrapper.getToken())){
+            return unauthenticated();
+        }
+
         return formatCity(
                 cityService.getCity(id)
         );
@@ -54,6 +69,10 @@ public class CityController {
 
     @GetMapping("/byName")
     public ResponseEntity<?> getCity(@RequestParam String name){
+        if(!Authorization.authenticate(tokenWrapper.getToken())){
+            return unauthenticated();
+        }
+
         return formatCity(
                 cityService.getCity(name)
         );
@@ -61,6 +80,10 @@ public class CityController {
 
     @PostMapping
     public ResponseEntity<?> createCity(@RequestBody City city){
+        if(!Authorization.authenticate(tokenWrapper.getToken())){
+            return unauthenticated();
+        }
+
         if(cityService.createCity(city))
             return new ResponseEntity<>(
                     MESSAGE_CITY_CREATED,
@@ -75,6 +98,10 @@ public class CityController {
 
     @PutMapping
     public ResponseEntity<?> updateCity(@RequestBody City city){
+        if(!Authorization.authenticate(tokenWrapper.getToken())){
+            return unauthenticated();
+        }
+
         if(cityService.updateCity(city))
             return new ResponseEntity<>(
                     MESSAGE_CITY_UPDATED,
@@ -89,6 +116,10 @@ public class CityController {
 
     @DeleteMapping
     public ResponseEntity<?> deleteCity(@RequestParam Integer id){
+        if(!Authorization.authenticate(tokenWrapper.getToken())){
+            return unauthenticated();
+        }
+
         if(cityService.deleteCity(id))
             return new ResponseEntity<>(
                     MESSAGE_CITY_DELETED,
