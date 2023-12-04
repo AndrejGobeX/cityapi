@@ -1,4 +1,4 @@
-package com.cityapi.cityapi.models;
+package com.cities.citytempapi.models;
 
 public class City {
     private int id;

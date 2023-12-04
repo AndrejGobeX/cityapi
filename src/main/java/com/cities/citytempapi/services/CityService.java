@@ -1,8 +1,8 @@
-package com.cityapi.cityapi.services;
+package com.cities.citytempapi.services;
 
-import com.cityapi.cityapi.PostgreConnection;
-import com.cityapi.cityapi.WeatherApiBridge;
-import com.cityapi.cityapi.models.City;
+import com.cities.citytempapi.PostgreConnection;
+import com.cities.citytempapi.WeatherApiBridge;
+import com.cities.citytempapi.models.City;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;

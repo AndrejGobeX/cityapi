@@ -1,4 +1,4 @@
-package com.cityapi.cityapi;
+package com.cities.citytempapi;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

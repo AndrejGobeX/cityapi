@@ -1,7 +1,7 @@
-package com.cityapi.cityapi.controllers;
+package com.cities.citytempapi.controllers;
 
-import com.cityapi.cityapi.models.User;
-import com.cityapi.cityapi.services.UserService;
+import com.cities.citytempapi.models.User;
+import com.cities.citytempapi.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;

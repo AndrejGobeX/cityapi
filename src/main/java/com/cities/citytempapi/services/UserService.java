@@ -1,7 +1,7 @@
-package com.cityapi.cityapi.services;
+package com.cities.citytempapi.services;
 
-import com.cityapi.cityapi.PostgreConnection;
-import com.cityapi.cityapi.models.User;
+import com.cities.citytempapi.PostgreConnection;
+import com.cities.citytempapi.models.User;
 import org.springframework.stereotype.Service;
 
 import java.sql.Connection;

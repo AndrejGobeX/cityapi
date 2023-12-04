@@ -1,7 +1,7 @@
-package com.cityapi.cityapi.controllers;
+package com.cities.citytempapi.controllers;
 
-import com.cityapi.cityapi.models.City;
-import com.cityapi.cityapi.services.CityService;
+import com.cities.citytempapi.models.City;
+import com.cities.citytempapi.services.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

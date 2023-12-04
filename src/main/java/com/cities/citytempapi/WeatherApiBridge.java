@@ -1,4 +1,4 @@
-package com.cityapi.cityapi;
+package com.cities.citytempapi;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
