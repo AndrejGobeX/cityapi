@@ -15,19 +15,19 @@ public class CityController {
 
     private final CityService cityService;
     private final TokenWrapper tokenWrapper;
-    private final static String MESSAGE_CITY_NOT_FOUND =
+    public final static String MESSAGE_CITY_NOT_FOUND =
             "The desired city does not exist in the database, or the query is invalid.";
-    private final static String MESSAGE_CITY_CREATED =
+    public final static String MESSAGE_CITY_CREATED =
             "Target city created successfully.";
-    private final static String MESSAGE_CITY_NOT_CREATED =
+    public final static String MESSAGE_CITY_NOT_CREATED =
             "The desired city contains null values, already exists, or an internal error has occurred.";
-    private final static String MESSAGE_CITY_UPDATED =
+    public final static String MESSAGE_CITY_UPDATED =
             "Target city updated successfully.";
-    private final static String MESSAGE_CITY_NOT_UPDATED =
+    public final static String MESSAGE_CITY_NOT_UPDATED =
             "The desired city contains null values, does not exist, or an internal error has occurred.";
-    private final static String MESSAGE_CITY_DELETED =
+    public final static String MESSAGE_CITY_DELETED =
             "Target city deleted successfully.";
-    private final static String MESSAGE_CITY_NOT_DELETED =
+    public final static String MESSAGE_CITY_NOT_DELETED =
             "Target city does not exist, or an internal error has occurred.";
 
     private ResponseEntity<?> formatCity(City city){

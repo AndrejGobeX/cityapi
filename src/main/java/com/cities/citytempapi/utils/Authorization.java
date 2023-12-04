@@ -1,7 +1,6 @@
 package com.cities.citytempapi.utils;
 
 import com.cities.citytempapi.models.User;
-import com.cities.citytempapi.services.UserService;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Formatter;
@@ -28,7 +27,7 @@ public class Authorization {
         }
     }
     private static final long expiration = 1000*60*30; //30min
-    private static final String MESSAGE_WRONG_CRED = "Wrong username or password.";
+    public static final String MESSAGE_WRONG_CRED = "Wrong username or password.";
     public static final String MESSAGE_INVALID_TOKEN = "Invalid token.";
     private static final Map<String, Tag> registeredTokens = new HashMap<>();
 
@@ -47,9 +46,8 @@ public class Authorization {
         }
     }
 
-    public static String login(User user, UserService service){
+    public static String login(User user, User existingUser){
         purge();
-        User existingUser = service.getUser(user.getUsername());
 
         if(existingUser == null ||
                 !existingUser.getPassword().equals(user.getPassword())){
